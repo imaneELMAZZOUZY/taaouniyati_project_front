@@ -1,18 +1,17 @@
-<div class="layout-topbar">
+<!-- <div class="layout-topbar">
     <a class="layout-topbar-logo" routerLink="">
-        <img src="assets/layout/images/{{layoutService.config().colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg" alt="logo">
-        <span>SAKAI</span>
+        <img src="assets/imgs/{{layoutService.config().colorScheme === 'light' ? 'logo_light' : 'logo_light'}}.png" alt="logo">
     </a>
 
-    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+     <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
         <i class="pi pi-bars"></i>
     </button>
 
     <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
         <i class="pi pi-ellipsis-v"></i>
-    </button>
+    </button> -->
 
-    <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+    <!-- <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
         <button class="p-link layout-topbar-button">
             <i class="pi pi-calendar"></i>
             <span>Calendar</span>
@@ -25,5 +24,39 @@
             <i class="pi pi-cog"></i>
             <span>Settings</span>
         </button>
+    </div> 
+</div> -->
+
+
+<div id="home" class="layout-topbar">
+    <div class="py-4 px-4 mx-0 md:mx-0 lg:mx-0 lg:px-8 flex align-items-center justify-content-between relative lg:static mb-3">
+        <a class="flex align-items-center" href="#">
+            <img src="assets/layout/images/{{layoutService.config().colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg" alt="Taaouniyati Logo" height="80" class="mr-0 lg:mr-2"><span class="text-800 font-medium text-2xl line-height-3 mr-8">TAAOUNIYATI</span>
+        </a>
+        <a pRipple class="cursor-pointer block lg:hidden text-700" pStyleClass="@next" enterClass="hidden" leaveToClass="hidden">
+            <i class="pi pi-bars text-4xl"></i>
+        </a>
+        <div class="align-items-center surface-0 flex-grow-1 justify-content-between hidden lg:flex absolute lg:static w-full left-0 px-6 lg:px-0 z-2" style="top:120px">
+            <ul class="list-none p-0 m-0 flex lg:align-items-center select-none flex-column lg:flex-row cursor-pointer">
+                <li>
+                    <!-- <a (click)="router.navigate(['/landing'], {fragment: 'home'})" pRipple class="flex m-0 md:ml-3 px-0 py-3 text-900 font-medium line-height-3"> -->
+                       <span>Accueil</span>
+                    <!-- </a> -->
+                </li>
+                <li>
+                    <!-- <a (click)="router.navigate(['/landing'], {fragment: 'listeProduits'})" pRipple class="flex m-0 md:ml-3 px-0 py-3 text-900 font-medium line-height-3"> -->
+                        <span>Liste des produits</span>
+                    <!-- </a> -->
+                </li>
+                <li>
+                    <!-- <a (click)="router.navigate(['/landing'], {fragment: 'cooperatives'})" pRipple class="flex m-0 md:ml-3 px-0 py-3 text-900 font-medium line-height-3"> -->
+                        <span>Coopératives</span>
+                    <!-- </a> -->
+                </li>
+            </ul>
+            <div class="flex justify-content-between lg:block border-top-1 lg:border-top-none surface-border py-3 lg:py-0 mt-3 lg:mt-0">
+                <button pButton pRipple label="S'inscrire" class="p-button-text p-button-rounded border-none font-light line-height-2" style="color: #8F9779;"> </button>
+                <button pButton pRipple label="S'authentifier" class="p-button-rounded border-none ml-0 font-light line-height-2 text-white" style="background-color: #8F9779;"></button>
+            </div>
+        </div>
     </div>
-</div>
