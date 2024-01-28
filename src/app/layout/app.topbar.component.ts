@@ -1,6 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
+import { Router } from '@angular/router';
+import { UserService } from '../demo/service/user.service';
 
 @Component({
     selector: 'app-topbar',
@@ -16,5 +18,11 @@ export class AppTopBarComponent {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService,public router:Router, 
+        public userService:UserService) { }
+
+
+    logout() {
+        this.userService.logout();
+    }
 }

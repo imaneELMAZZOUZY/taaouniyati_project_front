@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { DataView } from 'primeng/dataview';
-import { Product } from 'src/app/demo/api/product';
+import { Product } from 'src/app/demo/models/product';
 import { ProductService } from 'src/app/demo/service/product.service';
 
 @Component({

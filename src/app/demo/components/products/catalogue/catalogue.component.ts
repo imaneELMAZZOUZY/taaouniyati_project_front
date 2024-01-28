@@ -1,12 +1,14 @@
 
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { DataView } from 'primeng/dataview';
-import { Produit } from 'src/app/demo/api/produit';
+import { Produit } from 'src/app/demo/models/produit';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { CategoryService } from 'src/app/demo/service/category.service';
 import { CooperativeService } from 'src/app/demo/service/cooperative.service';
+import { UserService } from 'src/app/demo/service/user.service';
+
 
 @Component({
     templateUrl: './catalogue.component.html',
@@ -18,7 +20,8 @@ import { CooperativeService } from 'src/app/demo/service/cooperative.service';
             })),
             transition('void <=> *', animate(400)),
         ]),
-    ]
+    ],
+    providers: [MessageService]
 })
 export class CatalogueComponent implements OnInit {
 
@@ -36,7 +39,9 @@ export class CatalogueComponent implements OnInit {
 
     constructor(private productService: ProductService,
         private categoryService: CategoryService,
-        private cooperativeService: CooperativeService
+        private cooperativeService: CooperativeService,
+        private service: MessageService,
+        private userService: UserService
         ) { }
 
     ngOnInit() {
@@ -89,11 +94,25 @@ export class CatalogueComponent implements OnInit {
       }
     getLogoURL(logoFile: File | null): string {
         if (logoFile) {
-          return URL.createObjectURL(logoFile);
+            return URL.createObjectURL(logoFile);
         } 
         return '';
-      }
+    }        
 
+    markProductAsInteresting(productId:number) {
+
+        if (this.userService.authenticatedUser === null) {
+            this.service.add({ key: 'tst', severity: 'error', summary: "Pour pouvoir indiquer qu'un produit vous intéresse, veuillez vous connecter !"});
+
+        } else {
+        const clientEmail = JSON.parse(localStorage.getItem('authUser')).username;
+        
+        this.productService.sendProductInterest(productId, clientEmail).subscribe(() => {
+            this.service.add({ key: 'tst', severity: 'success', summary: 'Le produit est marqué comme intéressant', detail: 'Merci pour votre intérêt, la coopérative va vous contacter prochainement' });
+        });
+         }
+    }
+  
 
     
 }

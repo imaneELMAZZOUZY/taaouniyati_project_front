@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Produit } from '../api/produit';
-import { Product } from '../api/product';
+import { Produit } from '../models/produit';
+import { Product } from '../models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -109,6 +109,14 @@ export class ProductService {
       );
   }
 
+  sendProductInterest(productId:number, clientEmail:number):Observable<any>
+  {
+    let params = new HttpParams();
+    params = params.set('productId', productId.toString());
+    params = params.set('clientEmail', clientEmail.toString());
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');   
+    return this.http.post<Boolean>(this.apiUrl+`/interest`, { headers: headers },{params:params});
+  }
  
 
 

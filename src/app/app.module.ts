@@ -13,6 +13,7 @@ import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { CategoryService } from './demo/service/category.service';
 import { CooperativeService } from './demo/service/cooperative.service';
+import { UserService } from './demo/service/user.service';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,7 @@ import { CooperativeService } from './demo/service/cooperative.service';
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService,CategoryService,CooperativeService
+        PhotoService, ProductService,CategoryService,CooperativeService,UserService,
     ],
     bootstrap: [AppComponent]
 })

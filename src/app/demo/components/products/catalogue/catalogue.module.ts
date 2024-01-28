@@ -11,6 +11,7 @@ import { RatingModule } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
 import { CatalogueRoutingModule } from './catalogue-routing.module';
 import { CatalogueComponent } from './catalogue.component';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
 	imports: [
@@ -23,7 +24,8 @@ import { CatalogueComponent } from './catalogue.component';
 		InputTextModule,
 		DropdownModule,
 		RatingModule,
-		ButtonModule
+		ButtonModule,
+		ToastModule
 	],
 	declarations: [CatalogueComponent]
 })

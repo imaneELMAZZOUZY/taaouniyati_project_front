@@ -28,8 +28,8 @@ export class LayoutService {
         inputStyle: 'outlined',
         menuMode: 'static',
         colorScheme: 'light',
-        theme: 'lara-light-indigo',
-        scale: 14,
+        theme: 'fluent-light',
+        scale: 12,
     };
 
     config = signal<AppConfig>(this._config);

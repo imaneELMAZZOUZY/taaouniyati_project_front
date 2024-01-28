@@ -1,0 +1,92 @@
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="flex flex-column align-items-center justify-content-center">
+        <img src="assets/imgs/logo.png" alt="Taaouniyati Logo" height="150" class="mr-0 lg:mr-2">
+
+        <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, green 10%, rgba(33, 150, 243, 0) 30%);">
+            <div *ngIf="!choix">
+                    <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+                        <div class="text-center mb-5">
+                            <div class="text-900 text-3xl font-medium mb-3">Qui êtes-vous?</div>
+                            <span class="text-600 font-medium"></span>
+                        </div>
+                       
+                        <button pButton pRipple label="Client" class="w-full p-3 text-xl mb-3" (click)="choisirClient()" style="background-color: green;"></button>
+                        <button pButton pRipple label="Coopérative" class="w-full p-3 text-xl" (click)="choisirCooperative()" style="background-color: rgb(86, 71, 16);"></button>
+                    </div>
+            </div>
+
+            <div *ngIf="choix === 'cooperative'">
+                <!-- Le code pour l'inscription en tant que cooperative ici -->
+                <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">  
+
+                    <div class="text-center mb-5">
+                        <div class="text-900 text-3xl font-medium mb-3">Inscription</div>
+                        <span class="text-600 font-medium">Inscrivez-vous en tant que coopérative</span>
+                    </div>
+
+                    <div class="mt-5">
+                        <label for="nom" class="block text-900 text-xl font-medium mb-2">Nom complet</label>
+                        <input id="nom" type="text" placeholder="Nom complet" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="nom">
+                            
+                        <!-- <label for="email" class="block text-900 text-xl font-medium mb-2">Email</label>
+                        <input id="email" type="text" placeholder="Email address" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="email">
+
+                        <label for="description" class="block text-900 text-xl font-medium mb-2">Description</label>
+                        <textarea id="description" placeholder="Description" pInputTextarea class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="description"></textarea>
+
+                        <label for="address" class="block text-900 text-xl font-medium mb-2">Adresse</label>
+                        <input id="address" type="text" placeholder="Adresse" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="address">
+
+                        <label for="password" class="block text-900 font-medium text-xl mb-2">Mot de passe</label>
+                        <p-password id="password" [(ngModel)]="password" placeholder="Mot de passe" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
+
+                        <label for="tel" class="block text-900 text-xl font-medium mb-2">Téléphone</label>
+                        <input id="tel" type="text" placeholder="Téléphone" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="tel">
+                    
+                        <label for="photo" class="block text-900 text-xl font-medium mb-3">Photo</label>
+                        <input id="photo" type="file" pFileUpload class="w-full md:w-30rem mb-5 surface-border"(ngModel)]="photo"> -->
+                        
+                        <button pButton pRipple label="S'inscrire" class=" block w-full p-3 text-xl bouton vert" style="background-color: green;"></button>
+                        <div class="mt-3">
+                            Vous avez un compte? <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: brown" [routerLink]="'/auth/login'">Se connecter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="choix === 'client'">
+              <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+                <div class="text-center mb-5">
+                    <div class="text-900 text-3xl font-medium mb-3">Inscription</div>
+                    <span class="text-600 font-medium">Inscrivez-vous en tant que client</span>
+                </div>
+     
+                <div class="mt-5">
+                    <label for="nom" class="block text-900 text-xl font-medium mb-2">Nom </label>
+                    <input id="nom" type="text" placeholder="Nom " pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="nom">
+                     
+                    <label for="prenom" class="block text-900 text-xl font-medium mb-2">Prénom </label>
+                    <input id="prenom" type="text" placeholder="Prénom " pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="prenom">
+
+                    <label for="email" class="block text-900 text-xl font-medium mb-2">Email</label>
+                    <input id="email" type="text" placeholder="Email address" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="email">
+
+                    <label for="tel" class="block text-900 text-xl font-medium mb-2">Téléphone</label>
+                    <input id="tel" type="text" placeholder="Téléphone" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="tel">
+                    
+
+                    <label for="password" class="block text-900 font-medium text-xl mb-2">Mot de passe</label>
+                    <p-password id="password" [(ngModel)]="password" placeholder="Password" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
+                    
+
+                    <button pButton pRipple label="S'inscrire" class=" block w-full p-3 text-xl bouton vert" style="background-color: green;"></button>
+                    <div class="mt-3">
+                        Vous avez un compte? <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: brown" [routerLink]="'/auth/login'">Se connecter</a>
+                    </div>
+                </div>    
+            </div>
+         </div>
+
+     </div>
+ </div>
+</div>
