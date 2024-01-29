@@ -25,31 +25,41 @@
                     </div>
 
                     <div class="mt-5">
-                        <label for="nom" class="block text-900 text-xl font-medium mb-2">Nom complet</label>
-                        <input id="nom" type="text" placeholder="Nom complet" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="nom">
-                            
-                        <!-- <label for="email" class="block text-900 text-xl font-medium mb-2">Email</label>
-                        <input id="email" type="text" placeholder="Email address" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="email">
+
+                        
+                        <label for="nom" class="block text-900 text-xl font-medium mb-2">Nom de la coopérative</label>
+                        <input id="nom" type="text" placeholder="Nom" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="nom" name="nom">
+   
+                        <label for="email" class="block text-900 text-xl font-medium mb-2">Email</label>
+                        <input id="email" type="text" placeholder="Email address" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="email" name="email">
 
                         <label for="description" class="block text-900 text-xl font-medium mb-2">Description</label>
-                        <textarea id="description" placeholder="Description" pInputTextarea class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="description"></textarea>
+                        <textarea id="description" placeholder="Description" pInputTextarea class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="description" name="description"></textarea>
 
                         <label for="address" class="block text-900 text-xl font-medium mb-2">Adresse</label>
-                        <input id="address" type="text" placeholder="Adresse" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="address">
+                        <input id="address" type="text" placeholder="Adresse" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="address" name="address">
 
+                        <label for="localisation" class="block text-900 text-xl font-medium mb-2">Localisation</label>
+                        <select id="localisation"  class="w-full md:w-30rem mb-5 " style="height: 40px;"  [(ngModel)]="localisation" name="localisation">
+                            <option selected value="0">Choisir une localisation</option>
+                            <option *ngFor="let region of regions" [value]="region">{{region}}</option>
+                        </select>
                         <label for="password" class="block text-900 font-medium text-xl mb-2">Mot de passe</label>
-                        <p-password id="password" [(ngModel)]="password" placeholder="Mot de passe" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
+                        <p-password id="password" [(ngModel)]="password" placeholder="Mot de passe" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem" name="password"></p-password>
 
                         <label for="tel" class="block text-900 text-xl font-medium mb-2">Téléphone</label>
-                        <input id="tel" type="text" placeholder="Téléphone" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="tel">
-                    
-                        <label for="photo" class="block text-900 text-xl font-medium mb-3">Photo</label>
-                        <input id="photo" type="file" pFileUpload class="w-full md:w-30rem mb-5 surface-border"(ngModel)]="photo"> -->
+                        <input id="tel" type="text" placeholder="Téléphone" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="tel" name="tel">
+
+                        <label for="photo" class="block text-900 text-xl font-medium mb-3">Logo de la coopéative</label>
+                        <input id="photo" type="file" pFileUpload class="w-full md:w-30rem mb-5 surface-border" [(ngModel)]="photo" name="photo">
                         
-                        <button pButton pRipple label="S'inscrire" class=" block w-full p-3 text-xl bouton vert" style="background-color: green;"></button>
-                        <div class="mt-3">
+                        <button pButton pRipple label="S'inscrire" (click)="register()" class=" block w-full p-3 text-xl bouton vert" style="background-color: green;"></button>
+                        <div class="mt-3 mb-3">
                             Vous avez un compte? <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: brown" [routerLink]="'/auth/login'">Se connecter</a>
                         </div>
+                        
+                        <a class="font-medium no-underline ml-2 text-center cursor-pointer mt-3" style="color: brown" (click)="choisirClient()">S'inscrire en tant que client</a>
+                        
                     </div>
                 </div>
             </div>
@@ -63,26 +73,29 @@
      
                 <div class="mt-5">
                     <label for="nom" class="block text-900 text-xl font-medium mb-2">Nom </label>
-                    <input id="nom" type="text" placeholder="Nom " pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="nom">
+                    <input id="nom" name="nom" type="text" placeholder="Nom " pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="nom">
                      
                     <label for="prenom" class="block text-900 text-xl font-medium mb-2">Prénom </label>
-                    <input id="prenom" type="text" placeholder="Prénom " pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="prenom">
+                    <input id="prenom" name="prenom" type="text" placeholder="Prénom " pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="prenom">
 
                     <label for="email" class="block text-900 text-xl font-medium mb-2">Email</label>
-                    <input id="email" type="text" placeholder="Email address" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="email">
+                    <input id="email" name="email" type="text" placeholder="Email address" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="email">
 
                     <label for="tel" class="block text-900 text-xl font-medium mb-2">Téléphone</label>
-                    <input id="tel" type="text" placeholder="Téléphone" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="tel">
+                    <input id="tel" name="tel" type="text" placeholder="Téléphone" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="tel">
                     
 
                     <label for="password" class="block text-900 font-medium text-xl mb-2">Mot de passe</label>
-                    <p-password id="password" [(ngModel)]="password" placeholder="Password" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
+                    <p-password id="password" name="password" [(ngModel)]="password" placeholder="Password" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
                     
 
-                    <button pButton pRipple label="S'inscrire" class=" block w-full p-3 text-xl bouton vert" style="background-color: green;"></button>
-                    <div class="mt-3">
+                    <button pButton pRipple label="S'inscrire" (click)="register()" class=" block w-full p-3 text-xl bouton vert" style="background-color: green;"></button>
+                    <div class="mt-3 mb-3">
                         Vous avez un compte? <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: brown" [routerLink]="'/auth/login'">Se connecter</a>
                     </div>
+
+                    <a class="font-medium no-underline ml-2 text-center cursor-pointer mt-3" style="color: brown" (click)="choisirCooperative()">S'inscrire en tant que coopérative</a>
+
                 </div>    
             </div>
          </div>

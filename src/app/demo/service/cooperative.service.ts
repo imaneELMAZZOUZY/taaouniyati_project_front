@@ -25,5 +25,18 @@ export class CooperativeService {
      headers.delete('Content-Type');
         return this.http.get<any>(this.apiUrl,{headers: headers});
     }
+
+
+    saveCooperative(formData:FormData): Observable<any> {
+        const headers = new HttpHeaders();
+  
+        headers.delete('Content-Type');
+     
+    
+        return this.http.post<any>(`${this.apiUrl}`, formData,{headers: headers});
+    }
+    
+
+   
 }
 

@@ -80,12 +80,16 @@ export class UserService {
 
 
 
-  saveClient(client: Client): Observable<any> {
+  saveClient(client:Client): Observable<any> {
       
       const headers = new HttpHeaders().set('Content-Type', 'application/json');   
 
-      return this.http.post<Client>(this.apiUrl+`/clients`, client, { headers: headers });
+      
+
+      return this.http.post(this.apiUrl+`/clients`, client, { headers: headers });
   }
+
+  
 
 
   
