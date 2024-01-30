@@ -2,6 +2,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
+import { InterestedClientsComponent } from './demo/components/interested-clients/interested-clients.component';
 
 @NgModule({
     imports: [
@@ -20,6 +21,7 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
             { path: 'landing', loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule) },
+            { path: 'interested-clients', component: InterestedClientsComponent  },
             { path: 'notfound', component: NotfoundComponent },
             { path: 'ui', component: NotfoundComponent },
             { path: '**', redirectTo: '/notfound' },

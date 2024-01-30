@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,14 +15,18 @@ import { PhotoService } from './demo/service/photo.service';
 import { CategoryService } from './demo/service/category.service';
 import { CooperativeService } from './demo/service/cooperative.service';
 import { UserService } from './demo/service/user.service';
-
+import { InterestedClientsComponent } from './demo/components/interested-clients/interested-clients.component';
+import { DataViewModule } from 'primeng/dataview';
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent
+        AppComponent, NotfoundComponent,
+        InterestedClientsComponent,
     ],
     imports: [
         AppRoutingModule,
-        AppLayoutModule
+        AppLayoutModule,
+        CommonModule,
+        DataViewModule,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

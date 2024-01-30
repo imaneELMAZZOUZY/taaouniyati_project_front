@@ -1,5 +1,6 @@
 import { Admin } from "./admin";
 import { Categorie } from "./categorie";
+import { Client } from "./client";
 import { Cooperative } from "./cooperative";
 
 export interface Produit {
@@ -14,4 +15,5 @@ export interface Produit {
     categorie?: Categorie;
     cooperative?: Cooperative;
     admin?: Admin;
+    clients?: Client[];
 }
