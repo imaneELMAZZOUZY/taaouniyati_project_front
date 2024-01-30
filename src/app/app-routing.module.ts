@@ -16,6 +16,9 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
                     { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) },
                     { path: 'products', loadChildren: () => import('./demo/components/products/products.module').then(m => m.ProductsModule) },
+                    { path: 'cooperative-details', loadChildren: () => import('./demo/components/cooperative-details/cooperative-details.module').then(m => m.CooperativeDetailsModule) },
+                    { path: 'produit-details', loadChildren: () => import('./demo/components/produit-details/produit-details.module').then(m => m.ProduitDetailsModule) },
+                    
                 ]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
@@ -23,7 +26,7 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
             { path: 'notfound', component: NotfoundComponent },
             { path: 'ui', component: NotfoundComponent },
             { path: '**', redirectTo: '/notfound' },
-            
+           
             
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
     ],

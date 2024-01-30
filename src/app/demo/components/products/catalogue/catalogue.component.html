@@ -4,7 +4,7 @@
 		<div class="card">
 			<h5>Catalogue des produits </h5>
 
-			<p-dataView #dv [value]="products" [paginator]="true" [rows]="9" layout="grid">
+			<p-dataView #dv [value]="products" [paginator]="true" filterBy="nom" [rows]="9" layout="grid">
 				<ng-template pTemplate="header">
 					<div class="flex flex-column md:flex-row md:justify-content-between gap-2">
 						<div class="flex flex-column md:flex-row md:justify-content-between gap-2">
@@ -43,7 +43,7 @@
 
 							<div class="flex flex-column align-items-center justify-content-end" *ngIf="showButton" [@fadeInOut]>
 								<button pButton pRipple type="button" label="Voir le produit" class="p-button-outlined p-button-secondary golden-button"
-								(click)="redirectToProductDetail(product.id)">	
+								(click)="redirectToProductDetail(product)">	
 								</button>
 							</div>	
 						</div>

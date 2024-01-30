@@ -68,18 +68,7 @@ export class RegisterComponent implements OnInit {
  
           }
 
-        this.cooperative={  
-            nom:"",
-            telephone:"",
-            email:"",
-            password:"",
-            description:"",
-            address:"",
-            localisation:"",
-            photo:""
-
-
-        }
+       
         
      
 

@@ -8,6 +8,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { CategoryService } from 'src/app/demo/service/category.service';
 import { CooperativeService } from 'src/app/demo/service/cooperative.service';
 import { UserService } from 'src/app/demo/service/user.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -41,7 +42,8 @@ export class CatalogueComponent implements OnInit {
         private categoryService: CategoryService,
         private cooperativeService: CooperativeService,
         private service: MessageService,
-        private userService: UserService
+        private userService: UserService,
+        private router:Router
         ) { }
 
     ngOnInit() {
@@ -62,7 +64,7 @@ export class CatalogueComponent implements OnInit {
 
     loadProducts()
     {
-        this.productService.getProduitsWithFilter(this.cooperativeId, this.categorieId, this.currentPage, this.pageSize).subscribe(data => {
+        this.productService.getProduitsWithFilter(this.cooperativeId, this.categorieId).subscribe(data => {
             this.products = data;
             console.log(this.products);
             this.products.forEach(produit => {
@@ -78,6 +80,13 @@ export class CatalogueComponent implements OnInit {
     //     this.loadProducts();
     //   }
       
+    redirectToProductDetail(selectedProduit:Produit)
+    {
+        this.productService.selectedProduit=selectedProduit;
+        console.log(selectedProduit);
+        this.router.navigateByUrl("/produit-details");
+            
+    }
 
     onPageChange(page: number) {
         this.currentPage = page;
@@ -92,6 +101,7 @@ export class CatalogueComponent implements OnInit {
         }
         this.loadProducts();
       }
+
     getLogoURL(logoFile: File | null): string {
         if (logoFile) {
             return URL.createObjectURL(logoFile);
@@ -113,6 +123,9 @@ export class CatalogueComponent implements OnInit {
          }
     }
   
+    onFilter(dv: DataView, event: Event) {
+        dv.filter((event.target as HTMLInputElement).value);
+    }
 
     
 }

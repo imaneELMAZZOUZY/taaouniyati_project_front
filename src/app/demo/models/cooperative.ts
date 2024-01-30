@@ -5,7 +5,7 @@ export interface Cooperative {
     password?: string;
     description?: string;
     localisation?: string;
-    photo?: string;
+    photo?: File;
     address?: string;
     telephone?: string;
     estValide?: boolean;

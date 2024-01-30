@@ -11,7 +11,12 @@ import { Product } from '../models/product';
 export class ProductService {
   private apiUrl = 'http://localhost:8080/api/produits'; 
 
+  selectedProduit:Produit;
+
   constructor(private http: HttpClient) { }
+
+  
+ 
 
   // getProduitsWithFilter(cooperativeId: number | null, categorieId: number | null, currentPage: number, pageSize: number): Observable<Produit[]> {
   //   let url = `${this.apiUrl}`;
@@ -55,7 +60,7 @@ export class ProductService {
   // }
 
 
-  getProduitsWithFilter(cooperativeId: number | null, categorieId: number | null, currentPage: number, pageSize: number): Observable<Produit[]> {
+  getProduitsWithFilter(cooperativeId: number | null, categorieId: number | null): Observable<Produit[]> {
     let params = new HttpParams();
 
     if (cooperativeId) {
@@ -102,7 +107,6 @@ export class ProductService {
             categorie: { id: produit.categorie },
             cooperative: { id: produit.cooperative },
             admin: { id: produit.admin }
-          //  projectImages: this.convertBytesToFiles(project.projectImages), 
           }));
           return produits;
         })
@@ -136,6 +140,36 @@ export class ProductService {
     return bytes;
   }
 
+
+  
+    // getProduitsByCooperativeId(cooperativeId: number, categorieId: number): Observable<Produit[]> {
+    //   const url = `${this.apiUrl}/cooperative/${cooperativeId}/categorie/${categorieId}`;
+      
+    //   return this.http.get<any[]>(url).pipe(
+    //       map((data) => {
+    //           const produits: Produit[] = data.map((produit) => ({
+    //               id: produit.id,
+    //               nom: produit.nom,
+    //               description: produit.description,
+    //               prix: produit.prix,
+    //               photo: this.convertBytesToFile(produit.photo),
+    //               poids: produit.poids,
+    //               estValide: produit.estValide,
+    //               inStock: produit.inStock,
+    //               categorie: { id: produit.categorie },
+    //               cooperative: { id: produit.cooperative },
+    //               admin: { id: produit.admin }
+    //           }));
+    //           return produits;
+    //       })
+    //   );
+    // }
+
+    getProduitById(produitId: number): Observable<Produit> {
+    const url = `${this.apiUrl}/${produitId}`;
+    return this.http.get<Produit>(url);
+      }
+
   getProductsSmall() {
     return this.http.get<any>('assets/demo/data/products-small.json')
         .toPromise()
@@ -163,4 +197,6 @@ getProductsWithOrdersSmall() {
         .then(res => res.data as Product[])
         .then(data => data);
 }
+
+
 }
