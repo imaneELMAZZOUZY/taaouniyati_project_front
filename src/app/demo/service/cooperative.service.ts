@@ -26,6 +26,9 @@ export class CooperativeService {
      headers.delete('Content-Type');
         return this.http.get<any>(this.apiUrl,{headers: headers});
     }
+    getAllCooperatives(): Observable<Cooperative[]> {
+      return this.http.get<Cooperative[]>(this.apiUrl);
+    }
 
 
     saveCooperative(formData:FormData): Observable<any> {

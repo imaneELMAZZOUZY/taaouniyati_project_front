@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit{
             this.router.navigateByUrl("/cooperative/dashboard"); 
             }
             else if(this.userService.authenticatedUser.roles[0]=="ROLE_Admin"){
-                this.router.navigateByUrl("/admin/dashboard");
+                this.router.navigateByUrl("/pages/validateproduit");
             
             }
             else{
