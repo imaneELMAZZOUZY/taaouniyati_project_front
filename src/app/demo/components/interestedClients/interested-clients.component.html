@@ -1,0 +1,37 @@
+
+        
+
+          <div class="grid">
+              <div class="col-12">
+                <div class="card">
+                  <div class="cooperative-details">
+                  
+                    <div class="details">
+                      <h5 class="">Clients Interessés par mes produits </h5>
+                    
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="additional-details">
+                  <div class="card-container">
+                    <div class="card" *ngFor="let interestedClient of interestedClients">
+                      <div class="client-block">
+                        <div class="client-info">
+                          <h2 class="client-name">{{ interestedClient.nom }} {{ interestedClient.prenom }}</h2>
+                          <p class="client-number">{{ interestedClient.telephone }}</p>
+                          <p class="client-email">{{ interestedClient.email }}</p>
+                        </div>
+                        <div>
+                          <a href="#" class="btn btn-primary">Détails</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                        
+              </div>
+              
+              
+              </div>
+            </div>
+            

@@ -1,0 +1,143 @@
+
+  .col-12{
+    display: flex;
+    flex-direction: column;
+  }
+  .card {
+    border-radius: 5px;
+    background-color: rgb(18, 63, 14);
+    box-shadow: 1 2px 4px rgba(187, 197, 4, 0.1);
+    border-top: none;
+    margin-top: none;
+      margin: 0 auto;
+          width: 100%; 
+          display: flex;
+     
+  }
+  
+  .cooperative-details {
+    display: flex;
+    align-items: center;
+   
+  }
+  .additional-details {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-top: none;
+    margin-top: none;
+    margin: 0 auto;
+        width: 80%; /* Largeur de la carte */
+       
+  }
+  .logo-container {
+    width: 20%; /* Ajustez la taille du conteneur du logo selon vos besoins */
+    height: 100px; /* Ajustez la taille du conteneur du logo selon vos besoins */
+    border-radius: 50%;
+    overflow: hidden;  border: 2px solid darkgreen ;
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+  }
+
+  .product-card {
+    background-color: whitesmoke; /* Remplacez 'red' par la couleur que vous voulez */
+}
+  
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .logo img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .details {
+    text-align: left; /* Aligner le texte à gauche */
+   
+
+  }
+  
+  .nom {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .adresse {
+    margin-bottom: 10px;
+  }
+  
+  strong {
+    font-weight: bold;
+  }
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  nav ul li {
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+    font-size: x-large;
+  }
+  
+  .nav-menu ul li {
+    cursor: pointer;
+  }
+  
+  
+  .info-content {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .about-section, .products-section {
+    flex: 1;
+  }
+  
+  .about-section {
+    margin-right: 20px;
+  }
+  
+  .products-section {
+    margin: 20px;
+
+  }
+  
+  .active {
+    font-weight: bold;
+  }
+  
+  .golden-button {
+    border: 3px solid darken(gold, 10%);
+    background: white;
+    color: darken(gold, 20%);
+    width: 100%;
+    margin-top: 15px; 
+}
+    
+
+.green-button {
+    border: rgb(1, 32, 1);
+    background: darkgreen;
+    
+}
+
+.green-card {
+    border: 1px solid darken(darkgreen, 10%);
+    
+}

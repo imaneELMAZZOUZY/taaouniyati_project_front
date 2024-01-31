@@ -1,0 +1,135 @@
+<p-toast key="tst"></p-toast>
+<div class="grid">
+    <div class="col-12">
+      <div class="card">
+        <div class="cooperative-details">
+          
+            <div class="my-5">
+                <p-image [src]="getLogoURL(cooperative.photo)" alt="Image" width="150" class="shadow-4 m-5"></p-image>
+            </div>
+          
+          <!-- <div class="details">
+            <h2 class="nom text-white">{{ cooperative.nom }}</h2>
+            <div class="font-bold text-xl mb-2 text-white "> <i class="pi pi-map-marker pi-lg" style="color: rgb(194, 148, 75);"></i> {{cooperative.localisation}}</div>
+            <p class="adresse text-white"> {{ cooperative.address }}</p>
+         
+             Ajoutez d'autres détails de la coopérative ici 
+          </div> -->
+
+          <div class="flex-1 flex flex-column text-left md:text-left text-white">
+            <div class="font-bold text-4xl mb-5 ">{{cooperative.nom}}</div>
+            <div class="font-bold text-xl mb-2"> <i class="pi pi-map-marker pi-lg" style="color: rgb(194, 148, 75);"></i> {{cooperative.localisation}}</div>
+            <div class="mb-2 mt-2">{{cooperative.address}}</div>
+          
+        </div>
+        </div>
+        
+      </div>
+      <div class="additional-details">
+        <nav class="nav-menu">
+            <ul>
+              <li (click)="toggleSection('about')" [class.active]="showAboutSection">À propos</li>
+              <li (click)="toggleSection('products')" [class.active]="showProductsSection">Produits</li>
+            </ul>
+          </nav>
+          <div class="info-content">
+            <section *ngIf="showAboutSection" class="about-section">
+              <h3 style="margin-top: 20px;margin-left: 20px;">À propos</h3>
+              <div style=" margin-left: 25px;">{{ cooperative.description }}
+                <div class="flex align-items-center mt-2 mr-5">
+                    <i class="pi pi-phone mr-2"></i>
+                    <span class="font-semibold">{{cooperative.telephone}}</span>
+                </div>
+                <div class="flex align-items-center mt-2">
+                    <i class="pi pi-envelope mr-2"></i>
+                    <span class="font-semibold">{{cooperative.email}}</span>
+                </div>
+            </div>
+           
+              <h3 style="margin-top: 20px;margin-left: 20px;">Produits récemment ajoutés</h3>
+              <div *ngIf="products && products.length > 0" class="col-12 md:col-4 grid" >
+                <div *ngFor="let product of products.slice(0, 4)" class="card m-3 border-1 surface-border product-card card"
+                    >
+                    <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
+                        <div class="flex align-items-center">
+                            <span class="font-semibold">{{ product.categorie.nom }}</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-column align-items-center text-center mb-3">
+                        <img [src]="getLogoURL(product.photo)" [alt]="product.nom" class="w-9 shadow-2 my-3 mx-0"/>
+                        <div class="text-2xl font-bold">{{ product.nom }}</div>
+                        <div class="mb-3">{{ product.cooperative.nom }}</div>
+                        <span class="text-2xl font-semibold">{{ product.prix }} DH</span>
+                        <button pButton pRipple icon="pi pi-star-fill" title="Marquer comme intéressant" class="green-button"></button>
+
+
+                    </div>
+                    
+    
+                    <!-- <div class="flex flex-column align-items-center justify-content-end" *ngIf="showButton" [@fadeInOut]>
+                        <button pButton pRipple type="button" label="Voir le produit" class="p-button-outlined p-button-secondary golden-button"
+                        (click)="redirectToProductDetail(product.id)">	
+                        </button>
+                    </div>	 -->
+                </div>
+            </div>
+            <div *ngIf="!(products && products.length > 0)" style="margin-left: 25px;">
+                Aucun produit récemment ajouté.
+            </div>
+            <div style="text-align: right; margin-right: 20px; margin-top: 10px; margin-bottom: 10px;">
+                <a (click)="toggleSection('products')" class="font-bold" [class.active]="showProductsSection" style="text-decoration: none; color:darkgreen;">Voir tous les produits</a>
+            </div>
+            </section>
+            <section *ngIf="showProductsSection" class="products-section">
+                <p-dataView #dv [value]="products" [paginator]="true" [rows]="9" layout="grid">
+                    <ng-template pTemplate="header">
+                <div class="flex flex-column md:flex-row md:justify-content-between gap-2">
+                    <div class="flex flex-column md:flex-row md:justify-content-between gap-2">
+                        <p-dropdown [options]="categories" optionLabel="nom" optionValue="id" [(ngModel)]="categorieId" placeholder="Toutes les Catégories" (onChange)="onFilterChange($event)"></p-dropdown> 
+                     </div>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input type="search" pInputText placeholder="Rechercher un produit" (input)="onFilter(dv, $event)">
+                    </span>	
+                </div>
+            </ng-template>
+
+            <ng-template let-products pTemplate="gridItem">
+                <div class="grid grid-nogutter">
+                    <div  class="col-12 md:col-4 grid" >
+                        <div *ngFor="let product of products.slice(0, 4)" class="card m-3 border-1 surface-border product-card card"
+                            >
+                            <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
+                                <div class="flex align-items-center">
+                                    <span class="font-semibold">{{ product.categorie.nom }}</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-column align-items-center text-center mb-3">
+                                <img [src]="getLogoURL(product.photo)" [alt]="product.nom" class="w-9 shadow-2 my-3 mx-0"/>
+                                <div class="text-2xl font-bold">{{ product.nom }}</div>
+                                <div class="mb-3">{{ product.cooperative.nom }}</div>
+                                <span class="text-2xl font-semibold">{{ product.prix }} DH</span>
+                                <button pButton pRipple icon="pi pi-star-fill" title="Marquer comme intéressant" class="green-button"></button>
+        
+        
+                            </div>
+                            
+            
+                            <!-- <div class="flex flex-column align-items-center justify-content-end" *ngIf="showButton" [@fadeInOut]>
+                                <button pButton pRipple type="button" label="Voir le produit" class="p-button-outlined p-button-secondary golden-button"
+                                (click)="redirectToProductDetail(product.id)">	
+                                </button>
+                            </div>	 -->
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            
+			</p-dataView>
+            </section>
+            
+          </div>
+    </div>
+    </div>
+  </div>
+  

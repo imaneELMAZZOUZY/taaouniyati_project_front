@@ -1,0 +1,44 @@
+<div class="grid">
+  <p-toast key="tst"></p-toast>
+    <div class="col-12">
+      <div class="card">
+        <div class="cooperative-details">
+          <div class="my-5">
+            <p-image [src]="getLogoURL(cooperative.photo)" alt="Image" width="150" class="shadow-4 m-5"></p-image>
+        </div>
+          <div class="details">
+            <h5 class="">{{ cooperative.nom }}</h5>
+            <p class="text-white "> <i class="pi pi-map-marker pi-lg" style="color: rgb(194, 148, 75);"></i>
+                <!-- Icône de localisation -->
+                {{ cooperative.address }}</p>
+         
+            <!-- Ajoutez d'autres détails de la coopérative ici -->
+          </div>
+        </div>
+        
+      </div>
+      <div class="additional-details">
+        <section class="product  w-full">
+          <div class="flex justify-content-center">
+            <p-image [src]="getLogoURL(produit.photo)" alt="Image" width="250" [preview]="true"></p-image>
+        </div>
+            <div class="product-details">
+                <h1 class="product-title">{{produit.nom}}</h1>
+                <p><strong>Description:</strong> {{ produit.description }}</p>
+                        <ul>
+                           
+                            <li><strong>Prix:</strong> {{ produit.prix }} MAD</li>
+                            <li><strong>Poids:</strong> {{ produit.poids }} Kg</li>
+                            <li><strong>Disponibilité:</strong> <span class="{{ produit.inStock ? 'available' : 'out-of-stock' }}"> {{ produit.inStock ? 'En stock' : 'Hors stock' }}</span></li>
+                        </ul>
+
+              <a class="add-to-cart-button" (click)="markProductAsInteresting(produit.id)">Marquer comme intéressant</a>
+
+            </div>
+        </section>
+    </div>
+    
+    
+    </div>
+  </div>
+  

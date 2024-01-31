@@ -11,6 +11,9 @@ import { EventService } from './demo/service/event.service';
 import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
+import { CategoryService } from './demo/service/category.service';
+import { CooperativeService } from './demo/service/cooperative.service';
+import { UserService } from './demo/service/user.service';
 
 @NgModule({
     declarations: [
@@ -23,7 +26,7 @@ import { PhotoService } from './demo/service/photo.service';
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService
+        PhotoService, ProductService,CategoryService,CooperativeService,UserService,
     ],
     bootstrap: [AppComponent]
 })

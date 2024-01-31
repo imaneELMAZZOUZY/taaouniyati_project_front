@@ -1,5 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 import { LayoutService } from "./service/app.layout.service";
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-sidebar',

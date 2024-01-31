@@ -1,0 +1,27 @@
+.golden-button {
+    border: 3px solid darken(gold, 10%);
+    background: white;
+    color: darken(gold, 20%);
+    width: 100%;
+    margin-top: 15px; 
+}
+    
+
+.green-button {
+    border: rgb(1, 32, 1);
+    background: darkgreen;
+    
+}
+
+.green-card {
+    border: 1px solid darken(darkgreen, 10%);
+    
+}
+
+// .custom-header {
+//     font-size: 2em; /* Ajustez la taille de la police comme vous le souhaitez */
+//     font-family: 'Arial', sans-serif; /* Utilisez la police que vous préférez */
+//     text-transform: uppercase;
+//     font-weight: bold;
+//     color: darkgoldenrod; /* Utilisez la couleur que vous préférez */
+//   }
