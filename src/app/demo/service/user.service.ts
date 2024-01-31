@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, map, of } from 'rxjs';
 import { Route, Router } from '@angular/router';
 import { Client } from '../models/client';
@@ -88,7 +88,15 @@ export class UserService {
 
       return this.http.post(this.apiUrl+`/clients`, client, { headers: headers });
   }
+  getClientsInterested(cooperativeEmail: string): Observable<any> {
+    // Créez un objet HttpParams pour spécifier les paramètres de requête
+    let params = new HttpParams();
+    params = params.set('cooperativeEmail', cooperativeEmail);
 
+    // Configurez la requête avec les paramètres de requête
+    const url = `${this.apiUrl}/clients/InterestedClients`;
+    return this.http.get<any>(url, { params: params });
+  }
   
 
 

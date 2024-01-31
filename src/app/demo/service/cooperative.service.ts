@@ -19,6 +19,8 @@ export class CooperativeService {
 
     constructor(private http: HttpClient) { }
 
+   
+
     getCooperatives(): Observable<any> {
 
         
@@ -38,14 +40,7 @@ export class CooperativeService {
         return this.http.post<any>(`${this.apiUrl}`, formData,{headers: headers});
     }
 
-    getInterestedClients(cooperativeId: string): Observable<any> {
-        const url = `${this.apiUrl}/${cooperativeId}/clients-interested`;
-    
-        // Ajout du type de contenu JSON
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    
-        return this.http.get(url, { headers });
-      }
+
 
       getConnectedCooperativeIdByEmail(cooperativeEmail: string): Observable<string> {
         const endpoint = '/connected-id-by-email';

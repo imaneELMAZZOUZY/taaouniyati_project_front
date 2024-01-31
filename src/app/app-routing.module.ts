@@ -17,11 +17,12 @@ import { InterestedClientsComponent } from './demo/components/interested-clients
                     { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) },
                     { path: 'products', loadChildren: () => import('./demo/components/products/products.module').then(m => m.ProductsModule) },
+                    { path: 'interested-clients', loadChildren: () => import('./demo/components/interested-clients/interested-clients.module').then(m => m.InterestedClientsModule) },
+
                 ]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
             { path: 'landing', loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule) },
-            { path: 'interested-clients', component: InterestedClientsComponent  },
             { path: 'notfound', component: NotfoundComponent },
             { path: 'ui', component: NotfoundComponent },
             { path: '**', redirectTo: '/notfound' },

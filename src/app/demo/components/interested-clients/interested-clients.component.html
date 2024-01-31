@@ -1,44 +1,17 @@
-<!-- <p-toast key="tst"></p-toast> -->
-<div class="grid">
-	<div class="col-12">
-        <div class="container-fluid">
-            <div class="row">
-		<div class="card">
-			<h5>Les clients interessés </h5>
 
-			<p-dataView #dv [value]="interestedClients" [paginator]="true" [rows]="9" layout="grid">
-				<ng-template pTemplate="header">
-					<div class="flex flex-column md:flex-row md:justify-content-between gap-2">
-						<div class="flex flex-column md:flex-row md:justify-content-between gap-2">
-							<p-dropdown [options]="produits" optionLabel="nom" optionValue="id" [(ngModel)]="produitId" placeholder="Sélectionnez un produit" (onChange)="onProductChange($event)"></p-dropdown>
-						 </div>
-  
-					</div>
-				</ng-template>
-
-				<ng-template let-interestedClients pTemplate="gridItem">
-					<div class="grid grid-nogutter">
-                        <div class="card-container">
-                            <div class="card" *ngFor="let interestedClient of interestedClients">
-                              <div class="client-block">
-                                <div class="client-info">
-                                  <h2 class="client-name">{{ interestedClient.nom }} {{ interestedClient.prenom }}</h2>
-                                  <p class="client-number">{{ interestedClient.telephone }}</p>
-                                  <p class="client-email">{{ interestedClient.email }}</p>
-                                </div>
-                                <div>
-                                  <a href="#" class="btn btn-primary">Détails</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-					</div>
-				</ng-template>
-			</p-dataView>
-		</div>
-	</div>
-</div>
-</div>
-</div>
-
+          <div class="card-container">
+            <div class="card" *ngFor="let interestedClient of interestedClients">
+              <div class="client-block">
+                <div class="client-info">
+                  <h2 class="client-name">{{ interestedClient.nom }} {{ interestedClient.prenom }}</h2>
+                  <p class="client-number">{{ interestedClient.telephone }}</p>
+                  <p class="client-email">{{ interestedClient.email }}</p>
+                </div>
+                <div>
+                  <a href="#" class="btn btn-primary">Détails</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        
 

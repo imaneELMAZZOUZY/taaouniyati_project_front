@@ -54,6 +54,11 @@ export class ProductService {
   //   );
   // }
 
+  getAllProduits(): Observable<any[]> {
+    const url = `${this.apiUrl}`;
+    return this.http.get<any[]>(url);
+  }
+
 
   getProduitsWithFilter(cooperativeId: number | null, categorieId: number | null, currentPage: number, pageSize: number): Observable<Produit[]> {
     let params = new HttpParams();

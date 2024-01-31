@@ -2,11 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { CooperativeService } from '../../service/cooperative.service';
 import { Client } from '../../models/client';
 import { Produit } from '../../models/produit';
+import { MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { ProductService } from 'src/app/demo/service/product.service';
+import { Cooperative } from '../../models/cooperative';
+import { UserService } from 'src/app/demo/service/user.service';
+import { Categorie } from 'src/app/demo/models/categorie';
+import { CategoryService } from 'src/app/demo/service/category.service';
 
 @Component({
   selector: 'app-interested-clients',
   templateUrl: './interested-clients.component.html',
-  styleUrls: ['./interested-clients.component.scss']
+  styleUrls: ['./interested-clients.component.scss'],
+  providers: [MessageService]
+
+  
 })
 export class InterestedClientsComponent implements OnInit {
   interestedClients: Client[] = [];
@@ -19,73 +29,28 @@ export class InterestedClientsComponent implements OnInit {
   cooperativeId: string = null;
   filteredClients: Client[] = [];
 
-  constructor(private cooperativeService: CooperativeService) { }
+  constructor(private cooperativeService: CooperativeService,
+    private userService : UserService) { }
 
   ngOnInit(): void {
-    // Obtenez l'e-mail du client connecté à partir du stockage local
-    const cooperativeEmail = JSON.parse(localStorage.getItem('authUser')).username;
-
-    // Utilisez le service CooperativeService pour obtenir l'ID de la coopérative connectée
-    this.cooperativeService.getConnectedCooperativeIdByEmail(cooperativeEmail).subscribe(
-      (cooperativeId: string) => {
-        this.cooperativeId = cooperativeId;
-        console.log('ID de la coopérative connectée : ', cooperativeId);
-        this.cooperativeService.getProduitsCooperative(this.cooperativeId).subscribe(produits => {
-          this.produits = produits;
-          this.produits.unshift({ id: null, nom: 'Tous les produits' });
-          console.log(this.produits);
-          this.loadClients();
-        });
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération de l\'ID de la coopérative connectée : ', error);
-      }
-    );
-  }
-
-  loadClients() {
-    // Utilisez l'ID de la coopérative pour récupérer les clients intéressés
-    this.cooperativeService.getInterestedClients(this.cooperativeId).subscribe(
-      (data: Client[]) => {
-        console.log('Données récupérées avec succès : ', data);
-        this.interestedClients = data;
-        console.log('Données récupérées des clients intéressés : ', this.interestedClients);
-
-        // Maintenant que vous avez les clients intéressés, filtrez-les en fonction du produit sélectionné
-        this.filteredClients = this.filterClientsByProduit(this.interestedClients, this.produitId);
-        console.log('Clients filtrés par produit : ', this.filteredClients);
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération des clients intéressés : ', error);
-
-        if (error.status === 500) {
-          this.errorMessage = 'Erreur interne du serveur. Veuillez réessayer plus tard.';
-        } else {
-          this.errorMessage = 'Une erreur inattendue s\'est produite.';
+    // Utilisez le service pour récupérer la liste des clients intéressés
+    this.userService.getClientsInterested(this.userService.authenticatedUser.username)
+      .subscribe(
+        (clients) => {
+          console.log('Interested Clients:', clients);
+          // Réussi, mettez à jour la liste des clients intéressés
+          this.interestedClients = clients;
+        },
+        (error) => {
+          // Gestion des erreurs
+          console.error('Error fetching interested clients:', error);
+          this.errorMessage = 'An error occurred while fetching interested clients.';
         }
+      );
+
       }
-    );
-  }
+   
 
-  filterClientsByProduit(clients: Client[], produitId: number): Client[] {
-    if (produitId === null || produitId === undefined) {
-      // Si aucun produit n'est sélectionné, retournez tous les clients
-      return clients;
-    } else {
-      // Sinon, filtrez les clients en fonction de l'ID du produit
-      return clients.filter(client => client.produits.some(produit => produit.id === produitId));
-    }
-  }
-  
-  
 
-  onPageChange(page: number) {
-    this.currentPage = page;
-    this.loadClients();
-  }
-
-  onProductChange(event: any) {
-    this.produitId = event.value;
-    this.loadClients();
-  }
+ 
 }

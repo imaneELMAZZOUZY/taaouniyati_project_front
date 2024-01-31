@@ -19,8 +19,7 @@ import { InterestedClientsComponent } from './demo/components/interested-clients
 import { DataViewModule } from 'primeng/dataview';
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent,
-        InterestedClientsComponent,
+        AppComponent, NotfoundComponent
     ],
     imports: [
         AppRoutingModule,
