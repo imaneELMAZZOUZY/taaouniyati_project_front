@@ -71,6 +71,7 @@ export class ProductService {
       params = params.set('categorieId', categorieId.toString());
     }
 
+
   // return this.http.get<Produit[]>(this.apiUrl, { params })
       // .pipe(
       //   map((data: any) => {
@@ -113,6 +114,9 @@ export class ProductService {
       );
   }
 
+
+
+
   sendProductInterest(productId:number, clientEmail:number):Observable<any>
   {
     let params = new HttpParams();
@@ -122,6 +126,65 @@ export class ProductService {
     return this.http.post<Boolean>(this.apiUrl+`/interest`, { headers: headers },{params:params});
   }
  
+
+  saveProduct(data: any): Observable<any> {
+  
+    const formData = new FormData();
+    formData.append('nom', data.nom);
+    formData.append('description', data.description);
+    formData.append('prix', String(data.prix));
+    formData.append('poids', String(data.poids));
+    formData.append('estValide', String(false));
+    formData.append('inStock', String(data.inStock));
+    formData.append('categorie', String(data.categorie));
+    formData.append('cooperative',String(data.cooperative.id));
+  
+    if (data.photo) {
+      const blob = new Blob([data.photo], { type: 'image/jpeg' });
+      formData.append('productphoto', blob, 'produit_photo.jpg');
+    }
+  
+    console.log('i am save', formData);
+  
+    return this.http.post<Produit>(this.apiUrl, formData);
+  }
+
+
+  getProduitsNonValides(): Observable<Produit[]> {
+    const url = `${this.apiUrl}/nonvalides`;
+    return this.http.get<Produit[]>(url);
+}
+
+
+  getProduitsByCooperativeId(cooperativeId: number): Observable<Produit[]> {
+    const url = `${this.apiUrl}/cooperative/${cooperativeId}`;
+    return this.http.get<Produit[]>(url);
+}
+
+
+  // ...
+
+deleteProduct(productId: number): Observable<void> {
+  const url = `${this.apiUrl}/${productId}`;
+
+  return this.http.delete<void>(url);
+}
+
+
+validerProduct(productId: number, adminEmail: string): Observable<void> {
+
+  let params = new HttpParams();
+  params = params.set('productId',productId.toString());
+  params = params.set('adminEmail',adminEmail);
+  const url = `${this.apiUrl}/valider`;
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+  // Vous pouvez ajuster le corps de la requête selon votre besoin
+
+  return this.http.post<void>(url, { headers: headers },{params:params});
+}
+  
+  
 
 
   private convertBytesToFile(base64String: string, fileName = 'image.jpg', fileType = 'image/jpeg'): File {

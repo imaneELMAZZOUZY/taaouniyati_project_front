@@ -1,0 +1,192 @@
+<div class="grid">
+    <div class="col-12">
+      <div class="card">
+        <div class="cooperative-details">
+            <div class="cooperative-details">
+          
+                <div class="my-5">
+                    <p-image [src]="getLogoURL(cooperative.photo)" alt="Image" width="150" class="shadow-4 m-5"></p-image>
+                </div>
+              
+              <!-- <div class="details">
+                <h2 class="nom text-white">{{ cooperative.nom }}</h2>
+                <div class="font-bold text-xl mb-2 text-white "> <i class="pi pi-map-marker pi-lg" style="color: rgb(194, 148, 75);"></i> {{cooperative.localisation}}</div>
+                <p class="adresse text-white"> {{ cooperative.address }}</p>
+             
+                 Ajoutez d'autres détails de la coopérative ici 
+              </div> -->
+    
+              <div class="flex-1 flex flex-column text-left md:text-left text-white">
+                <div class="font-bold text-4xl mb-5 ">{{cooperative.nom}}</div>
+                <div class="font-bold text-xl mb-2"> <i class="pi pi-map-marker pi-lg" style="color: rgb(194, 148, 75);"></i> {{cooperative.localisation}}</div>
+                <div class="mb-2 mt-2">{{cooperative.address}}</div>
+              
+            </div>
+            </div>
+        </div>
+        
+      </div>
+      <div class="additional-details">
+        <nav class="nav-menu">
+            <ul>
+              <li (click)="toggleSection('about')" [class.active]="showAboutSection">À propos</li>
+              <li (click)="toggleSection('products')" [class.active]="showProductsSection">Produits</li>
+            </ul>
+          </nav>
+          <div class="info-content">
+            <section *ngIf="showAboutSection" class="about-section">
+              <h3 style="margin-top: 20px;margin-left: 20px;">À propos</h3>
+              <div class="flex flex-row align-items-center  mb-3"style=" margin-left: 25px;">
+                <p style=" margin-left: 10px;">{{ cooperative.description }}</p>
+                <button pButton pRipple type="button"  style="margin-right: 5px; color: goldenrod; border: none; background: none;" title="Renseigner profil">
+                    <i class="pi pi-pencil" style="font-size: 2rem;"></i>
+                </button>
+                
+              </div>
+              
+              <h3 style="margin-top: 20px;margin-left: 20px;">Produits récemment ajoutés</h3>
+              <div *ngIf="products && products.length > 0" class="product-grid">
+                <div *ngFor="let product of products.slice(0, 4)" class="product-card" (mouseenter)="showButton = true" (mouseleave)="showButton = false">
+                    <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
+                        <div class="flex align-items-center">
+                            <span class="font-semibold">{{getCategoryName(product.categorie.id)}}</span>
+                        </div>
+                        <span [class]="'product-badge ' + (product.inStock ? 'status-instock' : 'status-outofstock')">{{product.inStock ? 'In Stock' : 'Out of Stock'}}</span>
+                    </div>
+                    <div class="flex flex-column align-items-center text-center mb-3">
+                        <img [src]="getLogoURL(product.photo)" [alt]="product.nom" class="w-9 shadow-2 my-3 mx-0"/>
+                        <div class="text-2xl font-bold">{{product.nom}}</div>
+                    </div>
+                    
+                    <div class="flex align-items-center justify-content-between">
+                        <span class="text-2xl font-semibold">{{product.prix}} DH</span>
+                        <div>
+                             <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-outlined p-button-secondary" style="margin-right: 5px ;" title="Modifier" ></button>
+                        <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-outlined p-button-danger" title="Supprimer" ></button>
+                        </div>
+                       
+                    </div>
+                
+                </div>
+            </div>
+            
+            <div *ngIf="!(products && products.length > 0)" style="margin-left: 25px;">
+                Aucun produit récemment ajouté.
+            </div>
+            <div style="text-align: right; margin-right: 20px; margin-top: 10px; margin-bottom: 10px;">
+                <button  pButton pRipple type="button" label="Voir tous les produits" (click)="toggleSection('products')" [class.active]="showProductsSection" style="text-decoration: underline; border: none; color: blue; background-color: white;"></button>
+            </div>
+            </section>
+            <section *ngIf="showProductsSection" class="products-section">
+                <p-dataView #dv [value]="products" [paginator]="true" [rows]="9" layout="grid">
+                    <ng-template pTemplate="header">
+                <div class="flex flex-column md:flex-row md:justify-content-between gap-2">
+                    <div class="flex flex-column md:flex-row md:justify-content-between gap-2">
+                        <p-dropdown [options]="categories" optionLabel="nom" optionValue="id" [(ngModel)]="categorieId" placeholder="Toutes les Catégories" (onChange)="onFilterChange($event, 'categorie')"></p-dropdown> 
+                        <span class="p-input-icon-left">
+                          
+                            <button pButton pRipple icon="pi pi-plus" title="Ajouter un produit" class="add-button" (click)="openNew()"> Ajouter un produit</button>
+                        </span>
+                     </div>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input type="search" pInputText placeholder="Rechercher un produit" (input)="onFilter(dv, $event)">
+                    </span>	
+                </div>
+            </ng-template>
+
+            <ng-template let-products pTemplate="gridItem">
+                <div class="grid grid-nogutter">
+                    <div  class="product-grid">
+                        <div *ngFor="let product of products" class="product-card" (mouseenter)="showButton = true" (mouseleave)="showButton = false">
+                            <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
+                                <div class="flex align-items-center">
+                                    <span class="font-semibold">{{getCategoryName(product.categorie.id)}}</span>
+                                </div>
+                                <span [class]="'product-badge ' + (product.inStock ? 'status-instock' : 'status-outofstock')">{{product.inStock ? 'In Stock' : 'Out of Stock'}}</span>
+                            </div>
+                            <div class="flex flex-column align-items-center text-center mb-3">
+                                <img [src]="getLogoURL(product.photo)" [alt]="product.nom" class="w-9 shadow-2 my-3 mx-0"/>
+                                <div class="text-2xl font-bold">{{product.nom}}</div>
+                            </div>
+                            
+                            <div class="flex align-items-center justify-content-between">
+                                <span class="text-2xl font-semibold">{{product.prix}} DH</span>
+                                <div>
+                                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-outlined p-button-secondary" style="margin-right: 5px ;" title="Modifier" ></button>
+                               <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-outlined p-button-danger" title="Supprimer" ></button>
+                               </div>
+                            </div>
+                            <div class="flex justify-between items-center mt-3" *ngIf="showButton" [@fadeInOut]>
+                                <button pButton pRipple type="button" label="Voir le produit" class="p-button-outlined p-button-secondary golden-button"
+                                    (click)=" redirectToProductDetail(product)">
+                                </button>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            
+			</p-dataView>
+            <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Ajouter Produit"  [modal]="true" class="p-fluid">
+                <ng-template pTemplate="content">
+                 
+                    <div class="field">
+                        <label for="name">Photo de produit</label>
+                        <input
+                        type="file"
+                        class="w-full md:w-30rem mb-5 surface-border"
+                        name="photo"
+                        id="photo"
+                        (change)="onPhotoSelected($event)"
+                        
+                      />
+                    </div>
+                  
+                    <div class="field">
+                        <label for="name">Nom</label>
+                        <input type="text" pInputText id="name" [(ngModel)]="product.nom" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.nom}"/>
+                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.nom">Name is required.</small>
+                    </div>
+                    <div class="field">
+                        <label for="description">Description</label>
+                        <textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="status" style="margin-right: 10px;">In stock</label>
+                        <p-checkbox binary="true" [(ngModel)]="product.inStock" inputId="inventoryStatus"></p-checkbox>
+                    </div>
+                    
+    
+                    <div class="field">
+                        <label class="mb-3">Catégorie</label>
+                        <p-dropdown [options]="categoriesDB" optionLabel="nom" optionValue="id" [(ngModel)]="product.categorie" (onChange)="onFilterChange($event, 'categorie')"></p-dropdown> 
+                    </div>
+                    
+    
+                    <div class="formgrid grid">
+                        <div class="field col">
+                            <label for="price">Prix</label>
+                            <p-inputNumber id="price" [(ngModel)]="product.prix" mode="currency" currency="MAD" locale="fr-FR"></p-inputNumber>
+                        </div>
+                        <div class="field col">
+                            <label for="quantity">Poids</label>
+                            <p-inputNumber id="quantity" [(ngModel)]="product.poids"></p-inputNumber>
+                        </div>
+                    </div>
+                </ng-template>
+    
+                <ng-template pTemplate="footer">
+                    <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" style="color:darkgreen;" (click)="hideDialog()"></button>
+                    <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text" style="color: darkgreen;" (click)="saveProduct()"></button>
+                </ng-template>
+            </p-dialog>
+    
+            </section>
+            
+          </div>
+    </div>
+    </div>
+  </div>
+  

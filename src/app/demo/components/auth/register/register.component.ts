@@ -68,12 +68,18 @@ export class RegisterComponent implements OnInit {
  
           }
 
-       
-        
-     
-
+    
           
     }
+
+    onPhotoSelected(event: Event) : void {
+        const inputElement = event.target as HTMLInputElement;
+        if (inputElement.files && inputElement.files.length > 0) {
+          this.photo = inputElement.files[0];
+          console.log(this.photo);
+        }
+        }
+        
 
     register(){
 
@@ -108,9 +114,14 @@ export class RegisterComponent implements OnInit {
         formData.append('address', this.address);
         formData.append('localisation', this.localisation);
         if (this.photo) {
+            console.log(this.photo);
             const blob = new Blob([this.photo], { type: 'image/jpeg' });
+            console.log(blob);
             formData.append('cooperativephoto', blob, 'cooperative_logo.jpg');
+            
           }
+
+          
         this.cooperativeService.saveCooperative(formData).subscribe(res => {
             console.log(res);
             this.router.navigate(['/auth/login']);

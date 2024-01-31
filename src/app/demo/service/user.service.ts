@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, map, of } from 'rxjs';
 import { Route, Router } from '@angular/router';
 import { Client } from '../models/client';
@@ -33,6 +33,25 @@ export class UserService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.post<{ username: string, lastname: string, firstname: string, roles:string[] }>(this.apiUrl+`/auth`, credentials, { headers: headers });
   }
+
+  hasClientRole(): boolean {
+    return this.authenticatedUser?.roles.includes('ROLE_Client') ?? false;
+  }
+  hasCooperativeRole(): boolean {
+    return this.authenticatedUser?.roles.includes('ROLE_Cooperative') ?? false;
+  }
+
+  getClientsInterested(cooperativeEmail: string): Observable<any> {
+    // Créez un objet HttpParams pour spécifier les paramètres de requête
+    let params = new HttpParams();
+    params = params.set('cooperativeEmail', cooperativeEmail);
+
+    // Configurez la requête avec les paramètres de requête
+    const url = `${this.apiUrl}/clients/InterestedClients`;
+    return this.http.get<any>(url, { params: params });
+  }
+
+
 
   // verifyActivationAccount(email:string):Observable<Boolean>
   // {

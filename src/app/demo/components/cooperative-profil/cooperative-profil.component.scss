@@ -14,11 +14,10 @@
           display: flex;
      
   }
-  
   .cooperative-details {
     display: flex;
     align-items: center;
-   
+    width: 30%;
   }
   .additional-details {
     background-color: #ffffff;
@@ -28,7 +27,7 @@
     border-top: none;
     margin-top: none;
     margin: 0 auto;
-        width: 80%; /* Largeur de la carte */
+        width: 60%; /* Largeur de la carte */
        
   }
   .logo-container {
@@ -42,10 +41,6 @@
     align-items: center;
     margin-right: 30px;
   }
-
-  .product-card {
-    background-color: whitesmoke; /* Remplacez 'red' par la couleur que vous voulez */
-}
   
   .logo {
     display: flex;
@@ -59,13 +54,12 @@
     max-width: 100%;
     max-height: 100%;
     border-radius: 50%;
+    
     object-fit: cover;
   }
   
   .details {
     text-align: left; /* Aligner le texte à gauche */
-   
-
   }
   
   .nom {
@@ -130,10 +124,30 @@
     margin-top: 15px; 
 }
     
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    gap: 20px; /* Espacement entre les produits */
+}
+
+.product-card {
+    flex: 1 1 calc(50% - 20px); /* Deux produits par ligne avec espacement */
+    max-width: calc(50% - 20px); /* Limite la largeur pour deux produits par ligne */
+    border: 1px solid #ccc; /* Ajoute une bordure de 1 pixel solide de couleur grise */
+    border-radius: 8px; /* Ajoute un rayon de bordure de 8 pixels pour arrondir les coins */
+    padding: 10px; /* Ajoute un espace intérieur de 10 pixels pour le contenu de la carte */
+}
+
 
 .green-button {
     border: rgb(1, 32, 1);
     background: darkgreen;
+    
+}
+.add-button {
+    border: rgb(1, 32, 1);
+    background:darken(gold, 10%);
     
 }
 
@@ -141,3 +155,4 @@
     border: 1px solid darken(darkgreen, 10%);
     
 }
+

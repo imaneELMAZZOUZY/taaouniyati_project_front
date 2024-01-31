@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { DataView } from 'primeng/dataview';
 
 import { ProductService } from 'src/app/demo/service/product.service';
@@ -10,6 +10,7 @@ import { CooperativeService } from 'src/app/demo/service/cooperative.service';
 import { Router } from '@angular/router';
 import { Cooperative } from '../../models/cooperative';
 import { Produit } from '../../models/produit';
+import { UserService } from '../../service/user.service';
 
 @Component({
     selector: 'app-cooperative-details',
@@ -22,7 +23,9 @@ import { Produit } from '../../models/produit';
             })),
             transition('void <=> *', animate(400)),
         ]),
-    ]
+    ],
+
+    providers:[MessageService]
 })
 export class CooperativeDetailsComponent implements OnInit {
 
@@ -35,7 +38,6 @@ export class CooperativeDetailsComponent implements OnInit {
     pageSize: number = 10;
     totalRecords: number = 0;
 
-    cooperativeId:number = 3; 
     photoUrl: File;
     showAboutSection: boolean = true;
     showProductsSection: boolean = false;
@@ -45,7 +47,10 @@ export class CooperativeDetailsComponent implements OnInit {
     constructor(private productService: ProductService,
         private categoryService: CategoryService,
         private cooperativeService: CooperativeService,
-        private router: Router
+        private router: Router,
+
+        private userService:UserService,
+        private service:MessageService
         ) { }
 
     ngOnInit() {
@@ -53,34 +58,23 @@ export class CooperativeDetailsComponent implements OnInit {
             this.categories = categories;
             this.categories.unshift({ id: null, nom: 'Toutes les catégories' }); 
            
-        });      
-        this.cooperativeService.getCooperativeDetails(this.cooperativeId).subscribe(data => {
-              this.cooperative = data;
-              
-            },
-            (error) => {
-              console.error('Une erreur est survenue : ', error);
-            }
-          );
-      
-          this.loadProducts();
+        });   
+
+      this.cooperative=this.cooperativeService.selectedCooperative;
+           
+       
+      this.loadProducts();
        
     }
 
     loadProducts()
     {
-        this.productService.getProduitsWithFilter(this.cooperativeId,this.categorieId).subscribe(data => {
+        this.productService.getProduitsWithFilter(this.cooperative.id,this.categorieId).subscribe(data => {
             this.products = data;
-          
         }); 
 
     }
 
-    // loadProductsLazy(event: any) {
-    //     this.currentPage = event.first / event.rows + 1;
-    //     this.pageSize = event.rows;
-    //     this.loadProducts();
-    //   }
       
 
     onPageChange(page: number) {
@@ -88,18 +82,15 @@ export class CooperativeDetailsComponent implements OnInit {
         this.loadProducts();
       }
     
-      onFilterChange(event: any, filter: string) {
-        if (filter === 'categorie') {
+      onFilterChange(event: any) {
             if (event.value === null) {
               this.categorieId = 0; // Si Toutes les Catégories sont sélectionnées, catégorieId est défini sur 0
             } else {
               this.categorieId = event.value; // Sinon, la valeur sélectionnée est attribuée à categorieId
             }
-          }  else if (filter === 'cooperative') {
-          this.cooperativeId = event.value;
+          this.loadProducts();
         }
-        this.loadProducts();
-      }
+
       toggleSection(section: string) {
         if (section === 'about') {
           this.showAboutSection = true;
@@ -115,9 +106,26 @@ export class CooperativeDetailsComponent implements OnInit {
         } 
         return '';
       }
-      redirectToProductDetail(productId: number) {
-        this.router.navigate(['produit-details/produit-details', productId]);
+      redirectToProductDetail(produit:Produit) {
+        this.productService.selectedProduit=produit;
+        this.router.navigateByUrl("/cooperative-details");
     }
+
+
+    markProductAsInteresting(productId:number) {
+
+      if (this.userService.authenticatedUser === null) {
+          this.service.add({ key: 'tst', severity: 'error', summary: "Pour pouvoir indiquer qu'un produit vous intéresse, veuillez vous connecter !"});
+
+      } else {
+      const clientEmail = JSON.parse(localStorage.getItem('authUser')).username;
+      
+      this.productService.sendProductInterest(productId, clientEmail).subscribe(() => {
+          this.service.add({ key: 'tst', severity: 'success', summary: 'Le produit est marqué comme intéressant', detail: 'Merci pour votre intérêt, la coopérative va vous contacter prochainement' });
+      });
+       }
+  }
+
     
 
     }

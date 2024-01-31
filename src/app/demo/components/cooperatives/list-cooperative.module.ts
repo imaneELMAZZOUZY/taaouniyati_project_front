@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CooperativeDetailsRoutingModule } from './cooperative-details-routing.module';
-import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 
 import { DataViewModule } from 'primeng/dataview';
@@ -10,15 +8,16 @@ import { OrderListModule } from 'primeng/orderlist';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { RatingModule } from 'primeng/rating';
-import { CooperativeDetailsComponent } from './cooperative-details.component';
-import { ImageModule } from 'primeng/image';
+import { ButtonModule } from 'primeng/button';
+import { ListCooperativeComponent } from './list-cooperative.component';
 import { ToastModule } from 'primeng/toast';
+import { ListCooperativeRoutingModule } from './list-cooperative-routing.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
-		CooperativeDetailsRoutingModule,
+		ListCooperativeRoutingModule,
 		DataViewModule,
 		PickListModule,
 		OrderListModule,
@@ -26,10 +25,8 @@ import { ToastModule } from 'primeng/toast';
 		DropdownModule,
 		RatingModule,
 		ButtonModule,
-		ImageModule,
 		ToastModule
-
 	],
-	declarations: [CooperativeDetailsComponent]
+	declarations: [ListCooperativeComponent]
 })
-export class CooperativeDetailsModule { }
+export class ListCooperativeModule { }

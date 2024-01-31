@@ -51,10 +51,10 @@ export class LoginComponent implements OnInit{
             
             }
             else if(this.userService.authenticatedUser.roles[0]=="ROLE_Cooperative"){
-            this.router.navigateByUrl("/cooperative/dashboard"); 
+            this.router.navigateByUrl("/interested-clients"); 
             }
             else if(this.userService.authenticatedUser.roles[0]=="ROLE_Admin"){
-                this.router.navigateByUrl("/admin/dashboard");
+                this.router.navigateByUrl("/espace-admin");
             
             }
             else{

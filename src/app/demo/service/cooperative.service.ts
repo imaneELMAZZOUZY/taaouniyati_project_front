@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Cooperative } from '../models/cooperative';
 
@@ -8,6 +8,8 @@ import { Cooperative } from '../models/cooperative';
 })
 export class CooperativeService {
     private apiUrl = 'http://localhost:8080/api/cooperatives';
+
+    selectedCooperative: Cooperative;
 
     // const headers = new HttpHeaders();
   
@@ -18,15 +20,26 @@ export class CooperativeService {
 
     constructor(private http: HttpClient) { }
 
-    getCooperatives(): Observable<any> {
-
-        
-    const headers = new HttpHeaders();
-  
-     headers.delete('Content-Type');
-        return this.http.get<any>(this.apiUrl,{headers: headers});
+    getCooperatives(): Observable<Cooperative[]> {
+      return this.http.get<any[]>(this.apiUrl).pipe(
+        map((data) => {
+          return data.map((cooperative) => ({
+            id: cooperative.id,
+            nom: cooperative.nom,
+            description: cooperative.description,
+            email: cooperative.email,
+            localisation: cooperative.localisation,
+            address: cooperative.address,
+            telephone: cooperative.telephone,
+            photo: this.convertBytesToFile(cooperative.photo),
+            password: cooperative.password,
+            estValide: cooperative.estValide,
+            admin: cooperative.admin
+          })) as Cooperative[];
+        })
+      );
     }
-
+    
 
     saveCooperative(formData:FormData): Observable<any> {
         const headers = new HttpHeaders();
@@ -42,6 +55,37 @@ export class CooperativeService {
         const url = `${this.apiUrl}/${cooperativeId}`;
     
         return this.http.get<any>(url).pipe(
+          map((cooperative) => ({
+            id: cooperative.id,
+            nom: cooperative.nom,
+            description: cooperative.description,
+            email: cooperative.email,
+            localisation: cooperative.localisation,
+            address: cooperative.address,
+            telephone: cooperative.telephone,
+            photo: this.convertBytesToFile(cooperative.photo),
+            password: cooperative.password,
+            estValide: cooperative.estValide,
+            admin: cooperative.admin
+          }))
+        );
+      }
+
+    updateCooperative(cooperativeId: number, cooperative: any): Observable<any> {
+        const url = `${this.apiUrl}/${cooperativeId}`;
+        return this.http.put(url, cooperative);
+    }
+    deleteCooperative(id: number): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+      }
+
+      getCooperativeDetailsByEmail(cooperativeEmail: string): Observable<Cooperative> {
+        const url = `${this.apiUrl}`+`/email`;
+
+        let params = new HttpParams();
+        params = params.set('cooperativeEmail',cooperativeEmail);
+    
+        return this.http.get<any>(url,{params:params}).pipe(
           map((cooperative) => ({
             id: cooperative.id,
             nom: cooperative.nom,

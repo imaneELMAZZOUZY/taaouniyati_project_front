@@ -1,0 +1,77 @@
+<p-toast key="tst"></p-toast>
+<div class="grid">
+	<div class="col-12">
+		<div class="card">
+			<h5>Liste des coopératives </h5>
+
+			<p-dataView #dv [value]="cooperatives" [paginator]="true" filterBy="nom" [rows]="9" layout="list">
+				<ng-template pTemplate="header">
+					<div class="flex flex-column md:flex-row md:justify-content-between gap-2">
+						<span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input type="search" pInputText placeholder="Rechercher une coopérative" (input)="onFilter(dv, $event)">
+                        </span>	
+					</div>
+				</ng-template>
+
+
+				<ng-template let-cooperatives pTemplate="listItem">	
+					<div class="col-12" *ngFor="let cooperative of cooperatives">
+						<div class="flex flex-column md:flex-row align-items-center p-3 w-full">
+							<img [src]="getLogoURL(cooperative.photo)" [alt]="cooperative.nom" class="my-4 md:my-0 w-9 md:w-10rem shadow-2 mr-5"/>
+							<div class="flex-1 flex flex-column text-left md:text-left">
+								<div class="font-bold text-3xl mb-2 ">{{cooperative.nom}}</div>
+								<div class="font-bold text-xl mb-2"> <i class="pi pi-map-marker pi-lg" style="color: rgb(194, 148, 75);"></i> {{cooperative.localisation}}</div>
+								<div class="mb-2 mt-2">{{cooperative.address}}</div>
+								<div class="mb-2 mt-2">{{cooperative.description}}</div>
+								<!-- <p-rating [ngModel]="product.prix" [readonly]="true" [cancel]="false" styleClass="mb-2"></p-rating> -->
+								<div class="flex align-items-center mt-2">
+									<i class="pi pi-phone mr-2"></i>
+									<span class="font-semibold">{{cooperative.telephone}}</span>
+								</div>
+							</div>
+							<div class="flex flex-row md:flex-column justify-content-between w-full md:w-auto align-items-center md:align-items-end mt-5 md:mt-0">
+								<a class="add-to-cart-button" (click)="redirectToCooperativeDetails(cooperative)">Voir le profil de la coopérative</a>
+
+							</div>
+						</div>
+					</div>
+				</ng-template>
+
+
+				<!-- <ng-template let-products pTemplate="gridItem">
+					<div class="grid grid-nogutter">
+					<div class="col-12 md:col-4" *ngFor="let product of products">
+						<div class="card m-3 border-1 surface-border"
+						(mouseenter)="showButton = true"
+						(mouseleave)="showButton = false">
+							<div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
+								<div class="flex align-items-center">
+									<span class="font-semibold">{{product.categorie.nom}}</span>
+								</div>
+								<span [class]="'product-badge ' + (product.inStock ? 'status-instock' : 'status-outofstock')">{{product.inStock ? 'In Stock' : 'Out of Stock'}}</span>
+							</div>
+							<div class="flex flex-column align-items-center text-center mb-3">
+								<img [src]="getLogoURL(product.photo)" 
+								[alt]="product.nom" class="w-9 shadow-2 my-3 mx-0"/>
+								<div class="text-2xl font-bold">{{product.nom}}</div>
+								<div class="mb-3">{{product.cooperative.nom}}</div>
+							</div>
+							<div class="flex align-items-center justify-content-between">
+								<span class="text-2xl font-semibold">{{product.prix}} DH</span>
+								<button pButton pRipple icon="pi pi-star-fill" title="Marquer comme intéressant" class="green-button" (click)="markProductAsInteresting(product.id)"></button>
+							</div>
+
+							<div class="flex flex-column align-items-center justify-content-end" *ngIf="showButton" [@fadeInOut]>
+								<button pButton pRipple type="button" label="Voir le produit" class="p-button-outlined p-button-secondary golden-button"
+								(click)="redirectToProductDetail(product)">	
+								</button>
+							</div>	
+						</div>
+					</div>
+					</div>
+				</ng-template> -->
+			</p-dataView>
+		</div>
+	</div>
+</div>
